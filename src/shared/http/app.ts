@@ -13,8 +13,7 @@ app.use(express.json());
 
 app.use(router);
 
-// middleware de tratamento de erros
-// middleware usado par o tratametno de erros assíncronos
+// middleware de tratamento de erros assíncronos
 app.use((error: Error, request: Request, response: Response) => {
   if (error instanceof ApplicationError) {
     return response.status(error.statusCode).json({
