@@ -12,4 +12,6 @@ router.post('/', controller.create);
 
 router.patch('/:id', controller.updateNickname);
 
+router.put('/:id', controller.updateLastnameAddress);
+
 export default router;
