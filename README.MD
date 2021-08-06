@@ -23,6 +23,10 @@ cd hivelabs-challenge
 
 4. Crie um banco de dados **Postgres**
 
+4.1. Após criar o banco é preciso também criar o plugin do Postgres que permite o uso de uuid, já que esse plugin não vem instalado por padrão, para fazer isso, conectado ao seu banco execute o seguinte comando:
+
+> `CREATE EXTENSION IF NOT EXISTS "uuid-ossp";`
+
 5. Dentro do arquivo `ormconfig.env` defina o username, password e nome do banco de dados nas seguintes variáveis:
 
 ```
