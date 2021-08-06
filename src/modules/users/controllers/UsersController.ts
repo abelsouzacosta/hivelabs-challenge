@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import CreateUserService from '../services/CreateUserService';
 import GetUserThroughNicknameService from '../services/GetUserThroughNicknameService';
 import ListUsersService from '../services/ListUsersService';
+import UpdateUserNicknameService from '../services/UpdateUserNicknameService';
 export default class UsersController {
   public async index(request: Request, response: Response): Promise<Response> {
     const { name, lastName } = request.query;
@@ -41,6 +42,20 @@ export default class UsersController {
       address,
       bio,
     });
+
+    return response.status(200).json(user);
+  }
+
+  public async updateNickname(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const { id } = request.params;
+    const { nickname } = request.body;
+
+    const updateNick = new UpdateUserNicknameService();
+
+    const user = await updateNick.execute({ id, nickname });
 
     return response.status(200).json(user);
   }

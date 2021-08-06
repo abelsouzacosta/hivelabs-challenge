@@ -10,4 +10,6 @@ router.get('/:nickname', controller.get);
 
 router.post('/', controller.create);
 
+router.patch('/:id', controller.updateNickname);
+
 export default router;
