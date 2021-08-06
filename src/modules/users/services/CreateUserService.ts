@@ -1,6 +1,7 @@
 import ApplicationError from '@errors/ApplicationError';
 import { getCustomRepository } from 'typeorm';
 import UsersRepository from '../typeorm/repositories/UsersRepository';
+import FindUserByNicknameService from './FindUserByNicknameService';
 import User from '../typeorm/entities/Users';
 
 interface IUserCreate {
@@ -13,21 +14,16 @@ interface IUserCreate {
 
 export default class CreateUserService {
   private repository: UsersRepository;
+  private findUserByNickname;
 
   constructor() {
     this.repository = getCustomRepository(UsersRepository);
+    this.findUserByNickname = new FindUserByNicknameService();
   }
 
   // verifica se o nickname possui um comprimento maior que 30 caracteres
   private checkIfNicknameIsOutOfBoudaries(nickname: string): boolean {
     return nickname.length >= 30 ? true : false;
-  }
-
-  // verifica se um usuário com o nickname passado já existe
-  private async checkIfUserNicknameAlreadyInUse(
-    nickname: string,
-  ): Promise<User | undefined> {
-    return this.repository.findByNickname(nickname);
   }
 
   // cria o usuário no banco de dados da aplicação
@@ -41,7 +37,7 @@ export default class CreateUserService {
     if (this.checkIfNicknameIsOutOfBoudaries(nickname))
       throw new ApplicationError('Nickname length out of boundaries');
 
-    if (await this.checkIfUserNicknameAlreadyInUse(nickname))
+    if (await this.findUserByNickname.execute({ nickname }))
       throw new ApplicationError('Nickname already in use');
 
     // cria a instância de um usuário
