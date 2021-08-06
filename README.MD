@@ -34,12 +34,11 @@ TYPEORM_PASSWORD =
 
 # Nome do banco
 TYPEORM_DATABASE =
-
 ```
 
 6. Neste projeto foi usado o typeorm, para que seja possível fazer o uso de migrations é preciso ter o pacote `ts-node` instalado globalmente, se você não possuir este pacote instalado de forma global pode instalá-lo usando o comando:
 
-> > `npm -g install ts-node` ou `sudo npm -g install ts-node` (caso em ambiente linux)
+> `npm -g install ts-node` ou `sudo npm -g install ts-node` (caso em ambiente linux)
 
 7. Execute a migration da tabela com o comando: `yarn typeorm migration:run`
 
