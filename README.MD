@@ -43,3 +43,9 @@ TYPEORM_DATABASE =
 7. Execute a migration da tabela com o comando: `yarn typeorm migration:run`
 
 8. Inicialize a aplicação com `yarn dev`
+
+## Endpoints
+
+Caso usando o Insomnia o ambiente dos endpoints pode ser baixado no botão abaixo:
+
+[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=hivelabs-challenge&uri=https%3A%2F%2Fraw.githubusercontent.com%2Fabelsouzacosta%2Fhivelabs-challenge-endpoints%2Fmaster%2Fendpoints%3Ftoken%3DAHJQ6XH2CZIDZVEBDGDIZYTBBWBKY)
