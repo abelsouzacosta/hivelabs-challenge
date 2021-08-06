@@ -15,14 +15,9 @@
 git clone git@github.com:abelsouzacosta/hivelabs-challenge.git
 
 cd hivelabs-challenge
-
 ```
 
-2. Instale as dependencias:
-
-```yarn
-
-```
+2. Instale as dependencias: `yarn`
 
 3. Renomeie os arquivos `.ormconfig.env` e `.env.local` para `ormconfig.env` e `.env`, respectivamente.
 
