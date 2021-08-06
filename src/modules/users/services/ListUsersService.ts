@@ -10,7 +10,7 @@ export default class ListUsersService {
     this.repository = getCustomRepository(UsersRepository);
   }
 
-  public async execute(): Promise<User[] | undefined> {
+  public async execute(): Promise<User[]> {
     // busca por todos usuários no banco de dados
     const users = await this.repository.find();
 
