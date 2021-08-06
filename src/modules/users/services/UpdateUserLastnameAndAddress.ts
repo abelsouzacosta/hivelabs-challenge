@@ -39,9 +39,7 @@ export default class UpdateUserLastnameAndAddress {
     address,
   }: IUserLastnameAndAddressUpdate): Promise<User> {
     if (!this.isIdAnUUID(id))
-      throw new ApplicationError(
-        'Falied on parameter pattern: an uuid must be provided',
-      );
+      throw new ApplicationError('Invalid type: an uuid must be provided');
 
     const user = await this.findUser(id);
 
