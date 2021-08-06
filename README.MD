@@ -18,10 +18,9 @@ cd hivelabs-challenge
 
 ```
 
-2. Instale as dependencias
+2. Instale as dependencias:
 
-```
-yarn
+```yarn
 
 ```
 
