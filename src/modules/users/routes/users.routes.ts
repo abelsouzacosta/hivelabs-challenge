@@ -6,6 +6,8 @@ const controller = new UsersController();
 
 router.get('/', controller.index);
 
+router.get('/:nickname', controller.get);
+
 router.post('/', controller.create);
 
 export default router;

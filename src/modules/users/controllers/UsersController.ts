@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import CreateUserService from '../services/CreateUserService';
+import GetUserThroughNicknameService from '../services/GetUserThroughNicknameService';
 import ListUsersService from '../services/ListUsersService';
 export default class UsersController {
   public async index(request: Request, response: Response): Promise<Response> {
@@ -16,6 +17,16 @@ export default class UsersController {
       : result;
 
     return response.status(200).json(users);
+  }
+
+  public async get(request: Request, response: Response): Promise<Response> {
+    const { nickname } = request.params;
+
+    const get = new GetUserThroughNicknameService();
+
+    const user = await get.execute({ nickname });
+
+    return response.status(200).json(user);
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
