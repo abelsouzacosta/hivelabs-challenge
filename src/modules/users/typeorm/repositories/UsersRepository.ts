@@ -35,4 +35,34 @@ export default class UsersRepository extends Repository<User> {
 
     return users;
   }
+
+  // encontra um usuário pelo id
+  public async findById(id: string): Promise<User | undefined> {
+    const user = await this.findOne({
+      where: {
+        id,
+      },
+    });
+
+    return user;
+  }
+
+  // atualiza o nickname de um determinado usuário
+  public async updateUserNickname(
+    id: string,
+    nickname: string,
+  ): Promise<User | undefined> {
+    const user = await this.findOne({
+      where: {
+        id,
+      },
+    });
+
+    if (user) {
+      user.nickname = nickname;
+      await this.save(user);
+    }
+
+    return user;
+  }
 }
