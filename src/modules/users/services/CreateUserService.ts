@@ -12,26 +12,25 @@ interface IUserCreate {
 }
 
 export default class CreateUserService {
-  private repository;
+  private repository: UsersRepository;
 
   constructor() {
     this.repository = getCustomRepository(UsersRepository);
   }
 
-  // verifica se o nickname segue o padrão especificado
-  private _isNicknameWithCorrectLenght(nickname: string): boolean {
-    return nickname.length <= 30 ? true : false;
+  // verifica se o nickname possui um comprimento maior que 30 caracteres
+  private checkIfNicknameIsOutOfBoudaries(nickname: string): boolean {
+    return nickname.length >= 30 ? true : false;
   }
 
-  // verifica se o nickname já existe
-  private async _nicknameAlreadyExists(
+  // verifica se um usuário com o nickname passado já existe
+  private async checkIfUserNicknameAlreadyInUse(
     nickname: string,
-  ): Promise<true | false> {
-    const foundUser = await this.repository.findByNickname(nickname);
-
-    return foundUser ? true : false;
+  ): Promise<User | undefined> {
+    return this.repository.findByNickname(nickname);
   }
 
+  // cria o usuário no banco de dados da aplicação
   public async execute({
     name,
     lastName,
@@ -39,15 +38,13 @@ export default class CreateUserService {
     address,
     bio,
   }: IUserCreate): Promise<User> {
-    if (!this._isNicknameWithCorrectLenght(nickname))
-      throw new ApplicationError(
-        'Nickname lenght is higher than 30 characters',
-      );
+    if (this.checkIfNicknameIsOutOfBoudaries(nickname))
+      throw new ApplicationError('Nickname length out of boundaries');
 
-    if (!this._nicknameAlreadyExists(nickname))
-      throw new ApplicationError('Nickname already exists');
+    if (await this.checkIfUserNicknameAlreadyInUse(nickname))
+      throw new ApplicationError('Nickname already in use');
 
-    // criando a instância de usuário
+    // cria a instância de um usuário
     const user = this.repository.create({
       name,
       lastName,
@@ -56,8 +53,11 @@ export default class CreateUserService {
       bio,
     });
 
-    // salva o usuário no banco de dados
-    this.repository.save(user);
+    // salva a instância de usuário
+    if (!(await this.repository.save(user)))
+      throw new ApplicationError(
+        "There's an unknown error trying to save user's instance",
+      );
 
     return user;
   }
